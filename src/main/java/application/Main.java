@@ -24,7 +24,7 @@ public class Main {
 		System.out.println("Player one to start: ");
 		printLayer(board);
 
-		while (i <= 9 && !won){
+		while (i <= 8 && !won){
 			if(player1){
 				System.out.println("Player one please choose your field: ");
 			} else {
@@ -35,7 +35,7 @@ public class Main {
 				row = scanner.nextInt()-1;
 				System.out.print("Please choose the column: ");
 				column = scanner.nextInt()-1;
-			} while(checkIfChoosen(board, row, column));
+			} while((row < 0) || (row > 2) || (column < 0) || (column > 2) || checkIfChoosen(board, row, column) );
 
 
 			if(player1) {
@@ -47,9 +47,14 @@ public class Main {
 			player1 = !player1;
 
 			won=checkIfWinner(board);
-			if(!won) {
-				printLayer(board);
+			printLayer(board);
+
+
+			if(i == 8 && !won){
+				System.out.println("Nobody won");
+				won = true;
 			}
+
 
 			i++;
 		}
@@ -113,9 +118,9 @@ public class Main {
 		for(int[] myArr : arr){
 			for(int ele : myArr){
 				if(ele == 1){
-					System.out.print(ele + "\t");
+					System.out.print('O' + "\t");
 				} else if (ele == 2) {
-					System.out.print(ele + "\t");
+					System.out.print('X' + "\t");
 				} else {
 					System.out.print("+" + "\t");
 				}
